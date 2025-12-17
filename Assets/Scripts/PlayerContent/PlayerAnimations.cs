@@ -6,6 +6,7 @@ namespace PlayerContent
     {
         private const string Speed = "Speed";
         private const string Swing = "Swing";
+        private const string SpeedSwing = "SwingSpeed";
 
         [SerializeField] private Animator _animator;
 
@@ -19,6 +20,11 @@ namespace PlayerContent
         public void PlaySwing()
         {
             _animator.SetTrigger(Swing);
+        }
+
+        public void SetSpeedSwing(float value)
+        {
+            _animator.SetFloat(SpeedSwing,value);
         }
     }
 }
