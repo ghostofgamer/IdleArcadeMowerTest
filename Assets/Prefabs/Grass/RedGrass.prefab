@@ -132,7 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc8699f1fb68ff4fb8f5ab0a201f037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grass: {fileID: 4972919905155624433}
+  _resourceConfig: {fileID: 11400000, guid: 1745a729fe64ba54d8a76112eef40d88, type: 2}
+  _objectTarget: {fileID: 5838875844645464897}
   _respawnTime: 5
   _collider: {fileID: 527171486304891589}
 --- !u!65 &527171486304891589

@@ -1,25 +1,12 @@
 using PlayerContent;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AnimationEventsHandler : MonoBehaviour
 {
-    [SerializeField] private GrassInteractor _grassInteractor;
+    [SerializeField] private ResourceInteractor _resourceInteractor;
 
-    public void SwingHit()
-    {
-        // Debug.Log("Swing hit");
-        _grassInteractor.HandleGrassCut();
-    }
+    public void SwingHit() => _resourceInteractor.HandleGrassCut();
 
-    public void StartSwing()
-    {
-        // Debug.Log("Start swing");
-        _grassInteractor.SetValueCanCut(false);
-    }
-
-    public void EndSwing()
-    {
-        // Debug.Log("End swing");
-        _grassInteractor.SetValueCanCut(true);
-    }
+    public void EndSwing() => _resourceInteractor.SetValueCanCut(true);
 }
