@@ -12,6 +12,7 @@ namespace PlayerContent
         [SerializeField] private PlayerAnimations _playerAnimations;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _speedSwing;
+        [SerializeField] private Inventory _inventory;
 
         public bool IsCanCut { get; private set; } = true;
 
@@ -23,6 +24,11 @@ namespace PlayerContent
         private void OnDisable()
         {
             _playerInput.SwingInput -= PlaySwing;
+        }
+
+        private void Start()
+        {
+            _playerAnimations.SetSpeedSwing(_speedSwing);
         }
 
         private void PlaySwing()
@@ -39,22 +45,24 @@ namespace PlayerContent
             CheckResourceNearby();
         }
 
-        private void Start()
-        {
-            _playerAnimations.SetSpeedSwing(_speedSwing);
-        }
-
         public void CheckResourceNearby()
         {
             Collider[] hits = Physics.OverlapSphere(_cutPoint.position, _cutRadius, _resourceLayer);
+            int amounResorces = 0;
 
             foreach (var hit in hits)
             {
                 Debug.Log("hit " + hit.name);
 
                 if (hit.TryGetComponent(out Resource resource))
+                {
                     resource.Deactivate();
+                    amounResorces++;
+                }
             }
+            
+            if(amounResorces > 0)
+                _inventory.AddResource();
         }
 
         public void CutGrass()

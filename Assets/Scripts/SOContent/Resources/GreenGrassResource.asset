@@ -15,4 +15,4 @@ MonoBehaviour:
   _resourceType: 0
   _price: 1
   _respawnTime: 5
-  _effect: {fileID: 5966876837520612153, guid: 0e8053b0f4f76a1498a6670bee1783b5, type: 3}
+  _audioClip: {fileID: 8300000, guid: e2de67002220fd74080545001af2a8fa, type: 3}

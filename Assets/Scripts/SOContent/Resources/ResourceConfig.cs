@@ -9,9 +9,11 @@ namespace SOContent.Resources
         [SerializeField] private ResourcesType _resourceType;
         [SerializeField] private int _price;
         [SerializeField]private float _respawnTime;
+        [SerializeField]private AudioClip _audioClip;
 
         public ResourcesType ResourceType => _resourceType;
         public int Price => _price;
         public float RespawnTime => _respawnTime;
+        public AudioClip AudioClip => _audioClip;
     }
 }

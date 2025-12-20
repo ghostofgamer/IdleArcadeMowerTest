@@ -1,4 +1,5 @@
 using System.Collections;
+using AudioContent;
 using SOContent.Resources;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ namespace Resources
         {
             _objectTarget.SetActive(false);
             _collider.enabled = false;
+            AudioService.Instance.PlayClip(_resourceConfig.AudioClip);
             
             if (_hitEffect != null)
                 _hitEffect.Play();
