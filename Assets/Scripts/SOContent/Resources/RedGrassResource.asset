@@ -15,3 +15,4 @@ MonoBehaviour:
   _resourceType: 1
   _price: 1
   _respawnTime: 5
+  _effect: {fileID: 2470876025662169947, guid: 406985789fa9c614aa0ba758ad46a170, type: 3}
