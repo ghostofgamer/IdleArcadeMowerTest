@@ -1,5 +1,7 @@
-using Resources;
+using System.Collections.Generic;
+using SOContent.Resources;
 using UnityEngine;
+using Resource = Resources.Resource;
 
 namespace PlayerContent
 {
@@ -48,7 +50,7 @@ namespace PlayerContent
         public void CheckResourceNearby()
         {
             Collider[] hits = Physics.OverlapSphere(_cutPoint.position, _cutRadius, _resourceLayer);
-            int amounResorces = 0;
+            List<ResourceConfig> resourceConfigs = new List<ResourceConfig>();
 
             foreach (var hit in hits)
             {
@@ -57,12 +59,15 @@ namespace PlayerContent
                 if (hit.TryGetComponent(out Resource resource))
                 {
                     resource.Deactivate();
-                    amounResorces++;
+                    resourceConfigs.Add(resource.ResourceConfig);
                 }
             }
-            
-            if(amounResorces > 0)
-                _inventory.AddResource();
+
+            if (resourceConfigs.Count > 0)
+            {
+                foreach (var resourceConfig in resourceConfigs)
+                    _inventory.AddResource(resourceConfig);
+            }
         }
 
         public void CutGrass()
