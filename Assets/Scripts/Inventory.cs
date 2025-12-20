@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AttentionContent;
 using AudioContent;
 using Enum;
 using SOContent.Resources;
@@ -10,17 +11,17 @@ public class Inventory : MonoBehaviour
     [SerializeField] private AudioClip _collectResourceClip;
     [SerializeField] private int _baseMaxAmount = 10;
 
-    private int _maxAmount;
+    public int MaxAmount { get;private set; }
     private Dictionary<ResourcesType, int> _resources = new();
 
-    public Action ResourcesChanged;
-    
+    public Action<int, int> ResourcesChanged;
+
     public int CurrentAmount => GetTotalAmount();
     public Dictionary<ResourcesType, int> Resources => _resources;
 
-    private void Start()
+    private void Awake()
     {
-        _maxAmount = _baseMaxAmount;
+        MaxAmount = _baseMaxAmount;
     }
 
     private int GetTotalAmount()
@@ -37,9 +38,10 @@ public class Inventory : MonoBehaviour
     {
         Debug.Log("Before add: " + CurrentAmount);
 
-        if (CurrentAmount >= _maxAmount)
+        if (CurrentAmount >= MaxAmount)
         {
             Debug.Log("У тебя переполнен инвентарь");
+            AttentionHintActivator.ShowHint("У вас переполнен инвентарь");
             return;
         }
 
@@ -54,12 +56,12 @@ public class Inventory : MonoBehaviour
 
         foreach (var pair in _resources)
             Debug.Log($"{pair.Key} = {pair.Value}");
-        
-        ResourcesChanged?.Invoke();
+
+        ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
     }
 
     public void ChangeMaxAmount(int amount)
     {
-        _maxAmount = amount;
+        MaxAmount = amount;
     }
 }
