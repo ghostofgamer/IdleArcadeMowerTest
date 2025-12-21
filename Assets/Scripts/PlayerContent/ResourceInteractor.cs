@@ -7,14 +7,15 @@ namespace PlayerContent
 {
     public class ResourceInteractor : MonoBehaviour
     {
+        [SerializeField] private Sickle _sickle;
         [SerializeField] private Transform _cutPoint;
-        [SerializeField] private float _cutRadius = 1.5f;
         [SerializeField] private float _cutDistance = 2f;
         [SerializeField] private LayerMask _resourceLayer;
         [SerializeField] private PlayerAnimations _playerAnimations;
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private float _speedSwing;
         [SerializeField] private Inventory _inventory;
+
+        private int _currentlevel = 1;
 
         public bool IsCanCut { get; private set; } = true;
 
@@ -30,7 +31,7 @@ namespace PlayerContent
 
         private void Start()
         {
-            _playerAnimations.SetSpeedSwing(_speedSwing);
+            _playerAnimations.SetSpeedSwing(_sickle.SwingSpeed);
         }
 
         private void PlaySwing()
@@ -49,7 +50,8 @@ namespace PlayerContent
 
         public void CheckResourceNearby()
         {
-            Collider[] hits = Physics.OverlapSphere(_cutPoint.position, _cutRadius, _resourceLayer);
+            Collider[] hits =
+                Physics.OverlapSphere(_cutPoint.position, _sickle.CutRadius, _resourceLayer);
             List<ResourceConfig> resourceConfigs = new List<ResourceConfig>();
 
             foreach (var hit in hits)
@@ -70,10 +72,6 @@ namespace PlayerContent
             }
         }
 
-        public void CutGrass()
-        {
-        }
-
         public void SetValueCanCut(bool value)
         {
             IsCanCut = value;
@@ -84,11 +82,11 @@ namespace PlayerContent
             if (!_cutPoint) return;
 
             Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
-            Gizmos.DrawSphere(_cutPoint.position, _cutRadius);
+            Gizmos.DrawSphere(_cutPoint.position, _sickle.CutRadius);
             Gizmos.color = Color.red;
             Gizmos.DrawLine(_cutPoint.position, _cutPoint.position + transform.forward * _cutDistance);
             Gizmos.color = new Color(1f, 0f, 0f, 0.1f);
-            Gizmos.DrawSphere(_cutPoint.position + transform.forward * _cutDistance, _cutRadius);
+            Gizmos.DrawSphere(_cutPoint.position + transform.forward * _cutDistance, _sickle.CutRadius);
         }
     }
 }

@@ -8,12 +8,7 @@ public class ImproverZoneTrigger : MonoBehaviour
    
    private void OnTriggerEnter(Collider other)
    {
-      Debug.Log("Triggered");
-
       if (other.TryGetComponent(out Player player))
-      {
-         Debug.Log("Triggered Player");
          Triggered?.Invoke();
-      }
    }
 }

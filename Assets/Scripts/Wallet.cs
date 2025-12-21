@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
+    [SerializeField] private int _startValue;
     [SerializeField] private Currency[] _currencies;
     [SerializeField]private CurrencyUI _currencyUIPrefab;
     [SerializeField] private Transform _currencyUIParent;
@@ -19,10 +20,10 @@ public class Wallet : MonoBehaviour
 
         foreach (var currency in _currencies)
         {
-            _balances.Add(currency, 10);
+            _balances.Add(currency, _startValue);
 
             var ui = Instantiate(_currencyUIPrefab, _currencyUIParent);
-            ui.Init(currency, 10);
+            ui.Init(currency, _startValue);
 
             _uiMap.Add(currency, ui);
         }

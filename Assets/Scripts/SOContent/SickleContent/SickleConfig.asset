@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a018731d120856e429870b3ac3063ff2, type: 3}
+  m_Name: SickleConfig
+  m_EditorClassIdentifier: 
+  _levels:
+  - _level: 1
+    _cutRadius: 1.5
+    _swingSpeed: 1
+    _price: 0
+    _priceCurrency: {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
+  - _level: 2
+    _cutRadius: 1.85
+    _swingSpeed: 1.3
+    _price: 1
+    _priceCurrency: {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
+  - _level: 3
+    _cutRadius: 2.15
+    _swingSpeed: 1.6
+    _price: 3
+    _priceCurrency: {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
+  - _level: 4
+    _cutRadius: 2.35
+    _swingSpeed: 1.85
+    _price: 5
+    _priceCurrency: {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
+  - _level: 5
+    _cutRadius: 2.5
+    _swingSpeed: 2.3
+    _price: 6
+    _priceCurrency: {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
