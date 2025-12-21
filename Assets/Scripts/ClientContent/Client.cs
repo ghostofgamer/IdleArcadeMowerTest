@@ -4,6 +4,7 @@ using Enum;
 using Resources;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace ClientContent
@@ -11,13 +12,10 @@ namespace ClientContent
     public class Client : MonoBehaviour
     {
         [SerializeField] private Resource[] _resources;
-
-
+        [SerializeField] private Image _image;
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NavMeshObstacle _meshObstacle;
-        // [SerializeField] private Animator _animator;
-
-        [SerializeField] private Collider _clientCollider;
+        [SerializeField] private Animator _animator;
 
         private Vector3 _targetPosition;
         private Vector3 _exitPosition;
@@ -33,6 +31,12 @@ namespace ClientContent
 
         public int QueueNumber { get; private set; }
 
+        private void Update()
+        {
+            float speed = _isMoving ? 1f : 0f;
+            _animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
+        }
+        
         public void Init(Vector3 startPosition, Vector3 queuePosition, Vector3 exitPosition)
         {
             transform.position = startPosition;
@@ -41,13 +45,14 @@ namespace ClientContent
             _exitPosition = exitPosition;
             int randomIndex = Random.Range(0, _resources.Length);
             _resource = _resources[randomIndex];
+            _image.sprite = _resource.ResourceConfig.Icon;
         }
-        
+
         public Resource GetResource()
         {
             return _resource;
         }
-        
+
         public ResourcesType GetResourceType()
         {
             return _resource.ResourceConfig.ResourceType; // _resource — объект Resource у клиента
@@ -76,8 +81,9 @@ namespace ClientContent
                 _navMeshAgent.enabled = true;
 
             if (!_navMeshAgent.isOnNavMesh)
-                yield break; // если не на NavMesh — просто выходим
+                yield break;
 
+            _isMoving = true;
             _navMeshAgent.speed = _moveSpeed;
             _navMeshAgent.SetDestination(position);
 
@@ -86,6 +92,8 @@ namespace ClientContent
 
             while (_navMeshAgent.remainingDistance > 0.05f)
                 yield return null;
+
+            _isMoving = false;
 
             if (_navMeshAgent.enabled)
                 _navMeshAgent.enabled = false;
@@ -99,7 +107,7 @@ namespace ClientContent
         public void CompleteOrder()
         {
             // SetDestination(_exitPosition, Leave);
-            OnLeaveStarted?.Invoke(this);   // 🔥 СРАЗУ
+            OnLeaveStarted?.Invoke(this); // 🔥 СРАЗУ
             SetDestination(_exitPosition, Leave);
         }
 

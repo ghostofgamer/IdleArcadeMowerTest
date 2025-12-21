@@ -1016,7 +1016,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76721766}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -15.871832, y: -2.9475803, z: -2.0915034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12717,7 +12717,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.65
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -13804,6 +13804,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe6eff0ecfc831741ab6a50e31d3f7e6, type: 2}
   _currencyUIPrefab: {fileID: 2940051066815066046, guid: ed948a9e687c2d54e88a54391f3d4b22, type: 3}
   _currencyUIParent: {fileID: 115342798}
+  _coinSound: {fileID: 8300000, guid: 883ea4f11fc68f242a47ab70affe549d, type: 3}
 --- !u!1001 &1465245137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20890,8 +20891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 156773576}
   _clientQueue: {fileID: 761894809}
-  _counterPosition: {fileID: 0}
   _inventory: {fileID: 1002864018}
+  _wallet: {fileID: 1460192720}
 --- !u!1001 &8547793968730456581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21034,5 +21035,5 @@ SceneRoots:
   - {fileID: 700095341}
   - {fileID: 454429738997856590}
   - {fileID: 884629832}
-  - {fileID: 1378629456}
   - {fileID: 76721768}
+  - {fileID: 1378629456}
