@@ -1,12 +1,18 @@
 using System;
 using System.Collections;
+using Enum;
+using Resources;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace ClientContent
 {
     public class Client : MonoBehaviour
     {
+        [SerializeField] private Resource[] _resources;
+
+
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NavMeshObstacle _meshObstacle;
         // [SerializeField] private Animator _animator;
@@ -19,8 +25,10 @@ namespace ClientContent
         private float _moveSpeed = 6;
         private bool _isMoving = false;
         private Coroutine _moveCoroutine;
+        private Resource _resource;
 
         public event Action<Client> OnReachedDestination;
+        public event Action<Client> OnLeaveStarted;
         public event Action Exit;
 
         public int QueueNumber { get; private set; }
@@ -31,6 +39,18 @@ namespace ClientContent
             _targetPosition = queuePosition;
             _isMoving = true;
             _exitPosition = exitPosition;
+            int randomIndex = Random.Range(0, _resources.Length);
+            _resource = _resources[randomIndex];
+        }
+        
+        public Resource GetResource()
+        {
+            return _resource;
+        }
+        
+        public ResourcesType GetResourceType()
+        {
+            return _resource.ResourceConfig.ResourceType; // _resource — объект Resource у клиента
         }
 
         public void SetDestination(Vector3 position, Action callback)
@@ -78,6 +98,8 @@ namespace ClientContent
         [ContextMenu("CompleteOrder")]
         public void CompleteOrder()
         {
+            // SetDestination(_exitPosition, Leave);
+            OnLeaveStarted?.Invoke(this);   // 🔥 СРАЗУ
             SetDestination(_exitPosition, Leave);
         }
 

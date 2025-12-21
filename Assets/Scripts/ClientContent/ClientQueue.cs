@@ -51,40 +51,46 @@ namespace ClientContent
         {
             Client client = _spawner.SpawnRandomClient();
             _activeClients.Add(client);
-
-            // Присваиваем номерку и вычисляем позицию сразу
-            int queueNumber = _activeClients.Count; // первый будет 1, второй 2 и т.д.
+            
+            int queueNumber = _activeClients.Count;
             Vector3 targetPosition = GetQueuePosition(queueNumber);
 
             client.Init(client.transform.position, targetPosition, _exitPosition.position);
             client.SetQueueNumber(queueNumber);
             client.SetDestination(targetPosition, null);
+            
+            client.OnLeaveStarted += HandleClientLeaveStarted;
 
-            // Подписка на Exit
             Action onExit = null;
+            
             onExit = () =>
             {
-                RemoveClient(client);
-                client.Exit -= onExit; // отписка после выполнения
+                FinalRemoveClient(client);
+                client.Exit -= onExit;
             };
             client.Exit += onExit;
         }
 
-        private void RemoveClient(Client client)
+        private void HandleClientLeaveStarted(Client client)
         {
-            if (_activeClients.Contains(client))
-            {
-                _activeClients.Remove(client);
-                client.gameObject.SetActive(false);
+            if (!_activeClients.Contains(client))
+                return;
 
-                for (int i = 0; i < _activeClients.Count; i++)
-                {
-                    Client c = _activeClients[i];
-                    c.SetQueueNumber(i + 1); // первый всегда 1
-                    Vector3 newPos = GetQueuePosition(i + 1);
-                    c.SetDestination(newPos, null);
-                }
+            _activeClients.Remove(client);
+
+            // 🔥 СРАЗУ сдвигаем очередь
+            for (int i = 0; i < _activeClients.Count; i++)
+            {
+                Client c = _activeClients[i];
+                c.SetQueueNumber(i + 1);
+                Vector3 newPos = GetQueuePosition(i + 1);
+                c.SetDestination(newPos, null);
             }
+        }
+        
+        private void FinalRemoveClient(Client client)
+        {
+            client.gameObject.SetActive(false);
         }
 
         private int GetClientIndex(Client client)

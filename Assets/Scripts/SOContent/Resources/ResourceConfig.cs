@@ -1,4 +1,5 @@
 using Enum;
+using SOContent.CurrencyContent;
 using UnityEngine;
 
 namespace SOContent.Resources
@@ -12,6 +13,7 @@ namespace SOContent.Resources
         [SerializeField]private AudioClip _audioClip;
         [SerializeField] private int _amount;
         [SerializeField]private Sprite _icon;
+        [SerializeField]private Currency _currency;
 
         public ResourcesType ResourceType => _resourceType;
         public int Price => _price;
@@ -19,5 +21,6 @@ namespace SOContent.Resources
         public AudioClip AudioClip => _audioClip;
         public int Amount => _amount;
         public Sprite Icon => _icon;
+        public Currency Currency => _currency;
     }
 }

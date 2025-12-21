@@ -29,8 +29,11 @@ namespace UI.Viewers
 
         private void UpdateView(int currentAmount, int maxAmount)
         {
+            Debug.Log("UpdateView");
+            
             foreach (var ui in _resources)
             {
+                Debug.Log("_resources");
                 int amount = _inventory.Resources.TryGetValue(ui.ResourceType, out var value) ? value : 0;
                 ui.SetAmount(amount);
             }

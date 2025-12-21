@@ -73,6 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2dcde06c1b15743bed28cca92f5abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resources:
+  - {fileID: -2621133500266382199, guid: 9fd2e2513ee32aa44a6819fd8c2459b3, type: 3}
+  - {fileID: 748363713126079454, guid: cb39e084b5e663a4d94412ea8d0d00d8, type: 3}
   _navMeshAgent: {fileID: 8647382917722081954}
   _meshObstacle: {fileID: 1173664610280596702}
   _clientCollider: {fileID: 0}

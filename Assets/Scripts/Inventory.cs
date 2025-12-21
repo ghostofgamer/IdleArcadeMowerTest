@@ -45,11 +45,8 @@ public class Inventory : MonoBehaviour
 
     public void AddResource(ResourceConfig resourceConfig)
     {
-        Debug.Log("Before add: " + CurrentAmount);
-
         if (CurrentAmount >= MaxAmount)
         {
-            Debug.Log("У тебя переполнен инвентарь");
             AttentionHintActivator.ShowHint("У вас переполнен инвентарь");
             return;
         }
@@ -60,25 +57,28 @@ public class Inventory : MonoBehaviour
             _resources[resourceConfig.ResourceType] = resourceConfig.Amount;
 
         AudioService.Instance.PlayClip(_collectResourceClip);
-
-        Debug.Log("After add: " + CurrentAmount);
-
-        foreach (var pair in _resources)
-            Debug.Log($"{pair.Key} = {pair.Value}");
-
+        Debug.Log("CurrentAmount " + CurrentAmount + " MaxAmount " + MaxAmount);
         ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
     }
-    
+
     public InventoryLevel GetNextLevel()
     {
-        return _config.Levels[_currentLevel]; 
+        return _config.Levels[_currentLevel];
     }
-    
+
     public void ApplyUpgrade()
     {
         _currentLevel++;
         ApplyLevel();
         ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
+    }
+    
+    public int GetAmount(ResourcesType resourceType)
+    {
+        if (_resources.TryGetValue(resourceType, out int amount))
+            return amount;
+
+        return 0;
     }
 
     public bool CanLevelUp()

@@ -18,7 +18,6 @@ namespace AttentionContent
 
         public void ShowAttentionHint(string message)
         {
-            gameObject.SetActive(true);
             _hintText.text = message;
             _canvasGroup.alpha = _startAlpha;
 
@@ -40,8 +39,6 @@ namespace AttentionContent
                 _canvasGroup.alpha = Mathf.Lerp(_startAlpha, _endAlpha, _currentTime / _duration);
                 yield return null;
             }
-
-            gameObject.SetActive(false);
         }
     }
 }

@@ -60,11 +60,12 @@ namespace PlayerContent
 
                 if (hit.TryGetComponent(out Resource resource))
                 {
+                    Debug.Log("Deactivate " );
                     resource.Deactivate();
                     resourceConfigs.Add(resource.ResourceConfig);
                 }
             }
-
+            Debug.Log("Count " + resourceConfigs.Count);
             if (resourceConfigs.Count > 0)
             {
                 foreach (var resourceConfig in resourceConfigs)
