@@ -1,6 +1,5 @@
 using PlayerContent;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AnimationEventsHandler : MonoBehaviour
 {

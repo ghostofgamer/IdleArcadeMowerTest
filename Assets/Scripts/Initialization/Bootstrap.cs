@@ -8,7 +8,7 @@ namespace Initialization
     public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private AttentionHintViewer _attentionHintViewer;
-        
+        [SerializeField]private Wallet _wallet;
         [SerializeField] private LoadingScreen _loadingScreen;
         
         private void Awake()
@@ -23,6 +23,7 @@ namespace Initialization
 
         private IEnumerator InitializeGame()
         {
+            _wallet.Init();
             AttentionHintActivator.Init(_attentionHintViewer);
             _loadingScreen.Show();
             _loadingScreen.SetProgress(0.1f);

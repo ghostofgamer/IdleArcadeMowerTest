@@ -469,6 +469,8 @@ GameObject:
   - component: {fileID: 4193247684377118651}
   - component: {fileID: 3430290024686962832}
   - component: {fileID: 951074983604034033}
+  - component: {fileID: 5903944779479763662}
+  - component: {fileID: 7445445314569466921}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -568,6 +570,7 @@ MonoBehaviour:
   _playerAnimations: {fileID: 4193247684377118651}
   _playerInput: {fileID: 951074983604034033}
   _speedSwing: 1
+  _inventory: {fileID: 5903944779479763662}
 --- !u!114 &951074983604034033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +581,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9cd171d8d7513d4180372be45dde772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5903944779479763662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764956024122640033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215c6e7dce6249a4bb26a81c49be35e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectResourceClip: {fileID: 8300000, guid: 03469c82bb6effe4aad47feab74aa8be, type: 3}
+  _improverZoneTrigger: {fileID: 0}
+  _config: {fileID: 11400000, guid: 79ed01ff8aff4bf4182a65eaf9402611, type: 2}
+--- !u!114 &7445445314569466921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764956024122640033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1dd6c96ba5ccb47a85a229a532fd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3860171633450966533

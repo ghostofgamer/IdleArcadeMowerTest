@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using AttentionContent;
 using AudioContent;
 using Enum;
+using SOContent.Inventory;
 using SOContent.Resources;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private AudioClip _collectResourceClip;
-    [SerializeField] private int _baseMaxAmount = 10;
+    [SerializeField] private ImproverZoneTrigger _improverZoneTrigger;
+    [SerializeField] private InventoryConfig _config;
 
-    public int MaxAmount { get;private set; }
     private Dictionary<ResourcesType, int> _resources = new();
+    private int _currentLevel = 1;
 
     public Action<int, int> ResourcesChanged;
 
+    private int _maxLevel => _config.Levels.Length;
+    public int MaxAmount { get; private set; }
     public int CurrentAmount => GetTotalAmount();
     public Dictionary<ResourcesType, int> Resources => _resources;
 
     private void Awake()
     {
-        MaxAmount = _baseMaxAmount;
+        ApplyLevel();
     }
 
     private int GetTotalAmount()
@@ -32,6 +36,11 @@ public class Inventory : MonoBehaviour
             total += value;
 
         return total;
+    }
+
+    private void ApplyLevel()
+    {
+        MaxAmount = _config.Levels[_currentLevel - 1].MaxCapacity;
     }
 
     public void AddResource(ResourceConfig resourceConfig)
@@ -59,9 +68,21 @@ public class Inventory : MonoBehaviour
 
         ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
     }
-
-    public void ChangeMaxAmount(int amount)
+    
+    public InventoryLevel GetNextLevel()
     {
-        MaxAmount = amount;
+        return _config.Levels[_currentLevel]; 
+    }
+    
+    public void ApplyUpgrade()
+    {
+        _currentLevel++;
+        ApplyLevel();
+        ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
+    }
+
+    public bool CanLevelUp()
+    {
+        return _currentLevel < _maxLevel;
     }
 }
