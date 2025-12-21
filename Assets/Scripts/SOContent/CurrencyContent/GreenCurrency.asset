@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrencyType: 0
   Icon: {fileID: 21300000, guid: 2d70814044b131b4187115e91d54f482, type: 3}
+  Name: "\u0417\u0435\u043B\u0435\u043D\u0430\u044F \u043C\u043E\u043D\u0435\u0442\u0430"

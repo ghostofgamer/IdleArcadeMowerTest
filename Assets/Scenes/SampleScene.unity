@@ -2601,6 +2601,9 @@ MonoBehaviour:
   _wallet: {fileID: 1460192720}
   _loadingScreen: {fileID: 1078708807}
   _inventory: {fileID: 1002864018}
+  _spawner: {fileID: 761894808}
+  _clientQueue: {fileID: 761894809}
+  _waitTime: 0.165
 --- !u!1 &242326758
 GameObject:
   m_ObjectHideFlags: 0
@@ -7138,8 +7141,8 @@ RectTransform:
   - {fileID: 129126678}
   - {fileID: 1610784457}
   - {fileID: 995804803}
-  - {fileID: 1078708805}
   - {fileID: 783031065}
+  - {fileID: 1078708805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12571,6 +12574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hintText: {fileID: 2046629739}
   _canvasGroup: {fileID: 1610784458}
+  _duration: 0.65
 --- !u!114 &1342988895
 MonoBehaviour:
   m_ObjectHideFlags: 0
