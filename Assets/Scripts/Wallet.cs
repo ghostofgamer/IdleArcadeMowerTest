@@ -34,10 +34,7 @@ public class Wallet : MonoBehaviour
     public void Add(Currency currency, int amount)
     {
         if (!_balances.ContainsKey(currency))
-        {
-            Debug.LogError($"Wallet: Currency {currency.name} not registered");
             return;
-        }
 
         _balances[currency] += amount;
         _uiMap[currency].SetAmount(_balances[currency]);
@@ -54,13 +51,12 @@ public class Wallet : MonoBehaviour
         return _balances.TryGetValue(currency, out var value) && value >= amount;
     }
 
-    public bool Spend(Currency currency, int amount)
+    public void Spend(Currency currency, int amount)
     {
         if (!CanSpend(currency, amount))
-            return false;
+            return;
 
         _balances[currency] -= amount;
         _uiMap[currency].SetAmount(_balances[currency]);
-        return true;
     }
 }

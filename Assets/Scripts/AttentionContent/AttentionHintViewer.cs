@@ -8,10 +8,10 @@ namespace AttentionContent
     {
         [SerializeField] private TMP_Text _hintText;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _duration = 0.65f;
 
         private Coroutine _coroutine;
         private WaitForSeconds _waitForSeconds = new WaitForSeconds(0.3f);
-        private float _duration = 0.65f;
         private float _currentTime = 0f;
         private float _startAlpha = 1f;
         private float _endAlpha = 0f;

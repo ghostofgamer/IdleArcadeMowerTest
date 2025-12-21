@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class UIRotator : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject _target;
-    [SerializeField] private float _speed;
-
-    private void Update()
+    public class UIRotator : MonoBehaviour
     {
-        _target.transform.Rotate(Vector3.forward, _speed * Time.deltaTime);
+        [SerializeField] private GameObject _target;
+        [SerializeField] private float _speed;
+
+        private void Update()
+        {
+            _target.transform.Rotate(Vector3.forward, _speed * Time.deltaTime);
+        }
     }
 }

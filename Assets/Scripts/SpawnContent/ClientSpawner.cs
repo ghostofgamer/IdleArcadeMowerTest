@@ -12,7 +12,7 @@ namespace SpawnContent
 
         private ObjectPool<Client> _clientPool;
 
-        private void Start()
+        public void Init()
         {
             _clientPool = new ObjectPool<Client>(_clientPrefabs, _spawnAmount, _container);
             _clientPool.EnableAutoExpand();

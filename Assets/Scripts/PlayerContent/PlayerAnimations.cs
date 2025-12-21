@@ -9,8 +9,7 @@ namespace PlayerContent
         private const string SpeedSwing = "SwingSpeed";
 
         [SerializeField] private Animator _animator;
-
-        private float _dampTime = 0.1f;
+        [SerializeField]private float _dampTime = 0.1f;
 
         public void UpdateMovement(Vector3 move)
         {

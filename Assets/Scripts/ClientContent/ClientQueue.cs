@@ -26,7 +26,7 @@ namespace ClientContent
         
         public int ActiveCount => _activeClients.Count;
 
-        private void Start()
+        public void Init()
         {
             _spawnWait = new WaitForSeconds(_spawnInterval);
 
@@ -34,6 +34,13 @@ namespace ClientContent
                 StopCoroutine(_spawnCoroutine);
 
             _spawnCoroutine = StartCoroutine(AutoSpawn());
+        }
+
+        public Client GetFirstClient()
+        {
+            if (_activeClients.Count > 0)
+                return _activeClients[0];
+            return null;
         }
 
         private IEnumerator AutoSpawn()
@@ -58,9 +65,7 @@ namespace ClientContent
             client.Init(client.transform.position, targetPosition, _exitPosition.position);
             client.SetQueueNumber(queueNumber);
             client.SetDestination(targetPosition, null);
-            
             client.OnLeaveStarted += HandleClientLeaveStarted;
-
             Action onExit = null;
             
             onExit = () =>
@@ -77,8 +82,7 @@ namespace ClientContent
                 return;
 
             _activeClients.Remove(client);
-
-            // 🔥 СРАЗУ сдвигаем очередь
+            
             for (int i = 0; i < _activeClients.Count; i++)
             {
                 Client c = _activeClients[i];
@@ -87,7 +91,7 @@ namespace ClientContent
                 c.SetDestination(newPos, null);
             }
         }
-        
+
         private void FinalRemoveClient(Client client)
         {
             client.gameObject.SetActive(false);
@@ -96,6 +100,7 @@ namespace ClientContent
         private int GetClientIndex(Client client)
         {
             int index = 0;
+            
             foreach (var c in _activeClients)
             {
                 if (c == client) return index;
@@ -108,13 +113,6 @@ namespace ClientContent
         private Vector3 GetQueuePosition(int index)
         {
             return _queueStartPoint.position + new Vector3(0, 0, -index * _queueSpacing);
-        }
-        
-        public Client GetFirstClient()
-        {
-            if (_activeClients.Count > 0)
-                return _activeClients[0];
-            return null;
         }
     }
 }

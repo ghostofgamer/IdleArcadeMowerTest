@@ -1,11 +1,12 @@
+using System;
 using AttentionContent;
 using PlayerContent;
+using SOContent.CurrencyContent;
 using UnityEngine;
 
 public class UpgradeService : MonoBehaviour
 {
     [SerializeField] private Sickle _sickle;
-    
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Wallet _wallet;
     [SerializeField] private ImproverZoneTrigger _inventoryUpgradeZone;
@@ -34,16 +35,10 @@ public class UpgradeService : MonoBehaviour
 
         var nextLevel = _inventory.GetNextLevel();
 
-        if (!_wallet.CanSpend(nextLevel.PriceCurrency, nextLevel.Price))
-        {
-            AttentionHintActivator.ShowHint($"Недостаточно валюты: {nextLevel.Price}");
+        if (!TrySpend(nextLevel.PriceCurrency, nextLevel.Price))
             return;
-        }
 
-        _wallet.Spend(nextLevel.PriceCurrency, nextLevel.Price);
-        _inventory.ApplyUpgrade();
-
-        _playerEffectHandler.PlayEffectUpgrade();
+        Spend(nextLevel.PriceCurrency, nextLevel.Price, () => _inventory.ApplyUpgrade());
     }
 
     private void TrySickleUpgrade()
@@ -56,15 +51,28 @@ public class UpgradeService : MonoBehaviour
 
         var nextLevel = _sickle.GetNextLevel();
 
-        if (!_wallet.CanSpend(nextLevel.PriceCurrency, nextLevel.Price))
-        {
-            AttentionHintActivator.ShowHint($"Недостаточно валюты: {nextLevel.Price}");
+        if (!TrySpend(nextLevel.PriceCurrency, nextLevel.Price))
             return;
-        }
 
-        _wallet.Spend(nextLevel.PriceCurrency, nextLevel.Price);
-        _sickle.ApplyUpgrade();
+        Spend(nextLevel.PriceCurrency, nextLevel.Price, () => _sickle.ApplyUpgrade());
+    }
 
+    private bool TrySpend(Currency priceCurrency, int price)
+    {
+        if (_wallet.CanSpend(priceCurrency, price))
+            return true;
+
+        AttentionHintActivator.ShowHint($"Требуется {priceCurrency.Name}: {price}");
+
+        return false;
+    }
+
+    private void Spend(Currency currency, int price, Action callback)
+    {
+        _wallet.Spend(currency, price);
         _playerEffectHandler.PlayEffectUpgrade();
+
+        if (callback != null)
+            callback?.Invoke();
     }
 }

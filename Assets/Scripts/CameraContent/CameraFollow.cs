@@ -8,13 +8,15 @@ namespace CameraContent
         [SerializeField] private Vector3 _offset = new Vector3(0f, 10f, -10f);
         [SerializeField] private float _smoothSpeed = 5f;
 
+        private Vector3 _desiredPosition;
+        
         private void LateUpdate()
         {
             if (!_target)
                 return;
 
-            Vector3 desiredPosition = _target.position + _offset;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, _smoothSpeed * Time.deltaTime);
+            _desiredPosition = _target.position + _offset;
+            transform.position = Vector3.Lerp(transform.position, _desiredPosition, _smoothSpeed * Time.deltaTime);
         }
     }
 }

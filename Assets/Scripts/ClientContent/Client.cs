@@ -11,6 +11,8 @@ namespace ClientContent
 {
     public class Client : MonoBehaviour
     {
+        private const string Speed = "Speed";
+        
         [SerializeField] private Resource[] _resources;
         [SerializeField] private Image _image;
         [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -34,7 +36,7 @@ namespace ClientContent
         private void Update()
         {
             float speed = _isMoving ? 1f : 0f;
-            _animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
+            _animator.SetFloat(Speed, speed, 0.1f, Time.deltaTime);
         }
         
         public void Init(Vector3 startPosition, Vector3 queuePosition, Vector3 exitPosition)
@@ -55,13 +57,11 @@ namespace ClientContent
 
         public ResourcesType GetResourceType()
         {
-            return _resource.ResourceConfig.ResourceType; // _resource — объект Resource у клиента
+            return _resource.ResourceConfig.ResourceType; 
         }
 
         public void SetDestination(Vector3 position, Action callback)
         {
-            Debug.Log("SetDestination");
-
             if (_moveCoroutine != null)
                 StopCoroutine(_moveCoroutine);
 
@@ -71,6 +71,13 @@ namespace ClientContent
         public void SetQueueNumber(int number)
         {
             QueueNumber = number;
+        }
+
+        [ContextMenu("CompleteOrder")]
+        public void CompleteOrder()
+        {
+            OnLeaveStarted?.Invoke(this);
+            SetDestination(_exitPosition, Leave);
         }
 
         private IEnumerator MoveToPosition(Vector3 position, Action callback)
@@ -103,14 +110,6 @@ namespace ClientContent
             OnReachedDestination?.Invoke(this);
         }
 
-        [ContextMenu("CompleteOrder")]
-        public void CompleteOrder()
-        {
-            // SetDestination(_exitPosition, Leave);
-            OnLeaveStarted?.Invoke(this); // 🔥 СРАЗУ
-            SetDestination(_exitPosition, Leave);
-        }
-
-        public void Leave() => Exit?.Invoke();
+        private void Leave() => Exit?.Invoke();
     }
 }

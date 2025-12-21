@@ -24,15 +24,6 @@ namespace CashRegisterContent
             }
         }
 
-        public void HandleClientLeft(Client client)
-        {
-            if (_currentClientAtCounter == client)
-            {
-                _target.SetActive(false);
-                _currentClientAtCounter = null;
-            }
-        }
-
         public void HandleClient(Player player)
         {
             if (_currentClientAtCounter == null)
@@ -44,11 +35,9 @@ namespace CashRegisterContent
             ResourcesType wantedResource = _currentClientAtCounter.GetResourceType();
 
             int amount = _inventory.GetAmount(wantedResource);
-            Debug.Log("amount " + amount);
 
             if (amount > 0)
             {
-                Debug.Log("_inventory.Resources.TryGetValue ");
                 _wallet.Add(_currentClientAtCounter.GetResource().ResourceConfig.Currency,
                     _currentClientAtCounter.GetResource().ResourceConfig.Price);
                 _inventory.Resources[wantedResource] -= 1;
@@ -60,6 +49,15 @@ namespace CashRegisterContent
             {
                 AttentionHintActivator.ShowHint(
                     $"У вас нет нужного ресурса для этого клиента , он хочет {_currentClientAtCounter.GetResourceType()}");
+            }
+        }
+
+        private void HandleClientLeft(Client client)
+        {
+            if (_currentClientAtCounter == client)
+            {
+                _target.SetActive(false);
+                _currentClientAtCounter = null;
             }
         }
     }

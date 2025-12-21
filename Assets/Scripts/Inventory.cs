@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour
     public int CurrentAmount => GetTotalAmount();
     public Dictionary<ResourcesType, int> Resources => _resources;
 
-    private void Awake()
+    public void Init()
     {
         ApplyLevel();
     }
@@ -57,7 +57,6 @@ public class Inventory : MonoBehaviour
             _resources[resourceConfig.ResourceType] = resourceConfig.Amount;
 
         AudioService.Instance.PlayClip(_collectResourceClip);
-        Debug.Log("CurrentAmount " + CurrentAmount + " MaxAmount " + MaxAmount);
         ResourcesChanged?.Invoke(CurrentAmount, MaxAmount);
     }
 

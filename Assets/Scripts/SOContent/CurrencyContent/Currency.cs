@@ -8,5 +8,6 @@ namespace SOContent.CurrencyContent
     {
         public CurrencyType CurrencyType; 
         public Sprite Icon;
+        public string Name;
     }
 }

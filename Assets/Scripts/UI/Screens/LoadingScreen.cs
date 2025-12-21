@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Screens
 {
     public class LoadingScreen : AbstractScreen
     {
@@ -15,14 +15,6 @@ namespace UI
 
         private float _targetFill = 0f;
         private bool _isVisible;
-
-        private void Awake()
-        {
-            canvasGroup.alpha = 1f;
-            canvasGroup.blocksRaycasts = true;
-            fillImage.fillAmount = 0f;
-            _isVisible = true;
-        }
 
         private void Update()
         {

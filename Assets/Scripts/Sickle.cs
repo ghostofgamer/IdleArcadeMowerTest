@@ -25,7 +25,8 @@ public class Sickle : MonoBehaviour
 
     public void ApplyUpgrade()
     {
-        if (!CanLevelUp()) return;
+        if (!CanLevelUp())
+            return;
 
         _currentLevel++;
     }

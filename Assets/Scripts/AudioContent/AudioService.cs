@@ -15,8 +15,8 @@ namespace AudioContent
         [SerializeField] private AudioMixer _audioMixer;
         [SerializeField] private AudioSource _audioOneShotPlayer;
 
-        private bool musicEnabled = true;
-        private bool sfxEnabled = true;
+        private bool _musicEnabled = true;
+        private bool _sfxEnabled = true;
 
         private void Awake()
         {
@@ -30,26 +30,16 @@ namespace AudioContent
             DontDestroyOnLoad(gameObject);
         }
 
-        public void SetMusicVolume(float volume)
-        {
-            _audioMixer.SetFloat(Music, volume);
-        }
-
-        public void SetSFXVolume(float volume)
-        {
-            _audioMixer.SetFloat(SFX, volume);
-        }
-        
         public void ToggleSFX()
         {
-            sfxEnabled = !sfxEnabled;
-            SetSFXVolume(sfxEnabled ? OnVolume : OffVolume);
+            _sfxEnabled = !_sfxEnabled;
+            SetSFXVolume(_sfxEnabled ? OnVolume : OffVolume);
         }
-        
+
         public void ToggleMusic()
         {
-            musicEnabled = !musicEnabled;
-            SetMusicVolume(musicEnabled ? OnVolume : OffVolume);
+            _musicEnabled = !_musicEnabled;
+            SetMusicVolume(_musicEnabled ? OnVolume : OffVolume);
         }
 
         public void PlayClip(AudioClip clip)
@@ -57,8 +47,18 @@ namespace AudioContent
             _audioOneShotPlayer.PlayOneShot(clip);
         }
 
-        public bool IsMusicEnabled() => musicEnabled;
+        public bool IsMusicEnabled() => _musicEnabled;
 
-        public bool IsSFXEnabled() => sfxEnabled;
+        public bool IsSFXEnabled() => _sfxEnabled;
+
+        private void SetMusicVolume(float volume)
+        {
+            _audioMixer.SetFloat(Music, volume);
+        }
+
+        private void SetSFXVolume(float volume)
+        {
+            _audioMixer.SetFloat(SFX, volume);
+        }
     }
 }

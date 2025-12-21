@@ -1,28 +1,31 @@
 using System;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+namespace PlayerContent
 {
-    private PlayerInputActions _inputActions;
-
-    public event Action<Vector2> MoveInput;
-    public event Action SwingInput;
-
-    private void Awake()
+    public class PlayerInput : MonoBehaviour
     {
-        _inputActions = new PlayerInputActions();
-        _inputActions.Player.Move.performed += ctx => MoveInput?.Invoke(ctx.ReadValue<Vector2>());
-        _inputActions.Player.Move.canceled += ctx => MoveInput?.Invoke(Vector2.zero);
-        _inputActions.Player.Swing.performed += ctx => SwingInput?.Invoke();
-    }
+        private PlayerInputActions _inputActions;
+
+        public event Action<Vector2> MoveInput;
+        public event Action SwingInput;
+
+        private void Awake()
+        {
+            _inputActions = new PlayerInputActions();
+            _inputActions.Player.Move.performed += ctx => MoveInput?.Invoke(ctx.ReadValue<Vector2>());
+            _inputActions.Player.Move.canceled += ctx => MoveInput?.Invoke(Vector2.zero);
+            _inputActions.Player.Swing.performed += ctx => SwingInput?.Invoke();
+        }
     
-    private void OnEnable()
-    {
-        _inputActions.Player.Enable();
-    }
+        private void OnEnable()
+        {
+            _inputActions.Player.Enable();
+        }
 
-    private void OnDisable()
-    {
-        _inputActions.Player.Disable();
+        private void OnDisable()
+        {
+            _inputActions.Player.Disable();
+        }
     }
 }

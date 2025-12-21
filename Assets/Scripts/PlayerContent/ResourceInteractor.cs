@@ -48,24 +48,20 @@ namespace PlayerContent
             CheckResourceNearby();
         }
 
-        public void CheckResourceNearby()
+        private void CheckResourceNearby()
         {
-            Collider[] hits =
-                Physics.OverlapSphere(_cutPoint.position, _sickle.CutRadius, _resourceLayer);
+            Collider[] hits = Physics.OverlapSphere(_cutPoint.position, _sickle.CutRadius, _resourceLayer);
             List<ResourceConfig> resourceConfigs = new List<ResourceConfig>();
 
             foreach (var hit in hits)
             {
-                Debug.Log("hit " + hit.name);
-
                 if (hit.TryGetComponent(out Resource resource))
                 {
-                    Debug.Log("Deactivate " );
                     resource.Deactivate();
                     resourceConfigs.Add(resource.ResourceConfig);
                 }
             }
-            Debug.Log("Count " + resourceConfigs.Count);
+
             if (resourceConfigs.Count > 0)
             {
                 foreach (var resourceConfig in resourceConfigs)
@@ -76,18 +72,6 @@ namespace PlayerContent
         public void SetValueCanCut(bool value)
         {
             IsCanCut = value;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (!_cutPoint) return;
-
-            Gizmos.color = new Color(0f, 1f, 0f, 0.3f);
-            Gizmos.DrawSphere(_cutPoint.position, _sickle.CutRadius);
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(_cutPoint.position, _cutPoint.position + transform.forward * _cutDistance);
-            Gizmos.color = new Color(1f, 0f, 0f, 0.1f);
-            Gizmos.DrawSphere(_cutPoint.position + transform.forward * _cutDistance, _sickle.CutRadius);
         }
     }
 }
